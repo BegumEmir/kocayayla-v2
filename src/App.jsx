@@ -12,10 +12,14 @@ import Galeri from './pages/Galeri'
 import Faaliyetler from './pages/Faaliyetler'
 import Iletisim from './pages/Iletisim'
 import Kurullar from './pages/Kurullar'
+import HaberPopup from './components/HaberPopup'
+import ScrollToTop from './components/ScrollToTop'
 
 function App() {
   return (
     <div className="min-h-screen flex flex-col" style={{ backgroundColor: 'var(--color-bg)' }}>
+      <ScrollToTop />
+      <HaberPopup />
       <Navbar />
       <main className="flex-1">
         <Routes>
@@ -30,6 +34,7 @@ function App() {
           <Route path="/faaliyetler" element={<Faaliyetler />} />
           <Route path="/iletisim" element={<Iletisim />} />
           <Route path="/kurullar" element={<Kurullar />} />
+
         </Routes>
       </main>
       <Footer />

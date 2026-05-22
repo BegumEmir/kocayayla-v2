@@ -17,7 +17,6 @@ function MediaSlider({ medya, baslik, videoUrl }) {
 
   return (
     <div className="mb-6">
-      {/* Ana görüntü alanı */}
       <div className="relative rounded-xl overflow-hidden bg-black" style={{ aspectRatio: '16/9' }}>
         {item._type === 'image' ? (
           <img
@@ -34,7 +33,6 @@ function MediaSlider({ medya, baslik, videoUrl }) {
           />
         )}
 
-        {/* Ok butonları */}
         {medya.length > 1 && (
           <>
             <button
@@ -52,7 +50,6 @@ function MediaSlider({ medya, baslik, videoUrl }) {
           </>
         )}
 
-        {/* Sayaç */}
         {medya.length > 1 && (
           <span className="absolute bottom-2 right-3 text-white text-xs bg-black/50 px-2 py-0.5 rounded-full">
             {aktif + 1} / {medya.length}
@@ -60,7 +57,6 @@ function MediaSlider({ medya, baslik, videoUrl }) {
         )}
       </div>
 
-      {/* Küçük önizlemeler */}
       {medya.length > 1 && (
         <div className="flex gap-2 mt-2 overflow-x-auto pb-1">
           {medya.map((m, i) => (
@@ -93,6 +89,7 @@ function MediaSlider({ medya, baslik, videoUrl }) {
 export default function HaberDetay() {
   const { slug } = useParams()
   const [haber, setHaber] = useState(null)
+  const [kopyalandi, setKopyalandi] = useState(false)
 
   useEffect(() => {
     client
@@ -107,19 +104,41 @@ export default function HaberDetay() {
   const videoUrl = (ref) =>
     `https://cdn.sanity.io/files/${import.meta.env.VITE_SANITY_PROJECT_ID}/production/${ref.replace('file-', '').replace(/-(\w+)$/, '.$1')}`
 
+  const baglantiKopyala = () => {
+    navigator.clipboard.writeText(window.location.href)
+    setKopyalandi(true)
+    setTimeout(() => setKopyalandi(false), 2000)
+  }
+
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
-      <Link to="/haberler" className="text-sm mb-6 inline-block" style={{ color: 'var(--color-primary)' }}>
-        ← Tüm Haberler
-      </Link>
+
+      {/* Breadcrumb */}
+      <nav className="text-sm mb-6 flex items-center gap-1.5 text-gray-400">
+        <Link to="/" className="hover:underline" style={{ color: 'var(--color-primary)' }}>Ana Sayfa</Link>
+        <span>›</span>
+        <Link to="/haberler" className="hover:underline" style={{ color: 'var(--color-primary)' }}>Haberlerimiz</Link>
+        <span>›</span>
+        <span className="text-gray-500 truncate">{haber.baslik}</span>
+      </nav>
 
       <div className="bg-white rounded-2xl shadow-sm p-10">
         <h1 className="text-3xl font-bold mb-3" style={{ color: 'var(--color-primary-dark)' }}>
           {haber.baslik}
         </h1>
-        <p className="text-sm text-gray-400 mb-6">
-          {new Date(haber.tarih).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' })}
-        </p>
+
+        <div className="flex items-center justify-between mb-6">
+          <p className="text-sm text-gray-400">
+            {new Date(haber.tarih).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' })}
+          </p>
+          <button
+            onClick={baglantiKopyala}
+            className="text-sm px-4 py-1.5 rounded-full border flex items-center gap-2 hover:bg-gray-50 transition"
+            style={{ borderColor: 'var(--color-primary)', color: 'var(--color-primary)' }}
+          >
+            🔗 {kopyalandi ? 'Kopyalandı!' : 'Bağlantıyı kopyala'}
+          </button>
+        </div>
 
         <MediaSlider medya={haber.medya} baslik={haber.baslik} videoUrl={videoUrl} />
 
@@ -149,6 +168,12 @@ export default function HaberDetay() {
             )}
           </div>
         )}
+
+        <div className="mt-8 pt-6 border-t border-gray-100">
+          <Link to="/haberler" className="text-sm font-medium hover:underline" style={{ color: 'var(--color-primary)' }}>
+            ← Tüm Haberler
+          </Link>
+        </div>
       </div>
     </div>
   )

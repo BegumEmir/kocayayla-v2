@@ -55,7 +55,7 @@ export default function Kurullar() {
       <div className="border-t border-gray-200 mb-16" />
 
       {/* Denetim Kurulu */}
-      <h2 className="text-3xl font-bold mb-2" style={{ color: 'var(--color-primary-dark)' }}>
+      <h2 id="denetim-kurulu" className="text-3xl font-bold mb-2" style={{ color: 'var(--color-primary-dark)' }}>
         Denetim Kurulu
       </h2>
       <p className="text-gray-500 mb-8">Kooperatifimizin denetim kurulu üyeleri</p>

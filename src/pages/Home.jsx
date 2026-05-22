@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { client } from '../sanityClient'
+import GaleriSlider from '../components/GaleriSlider'
 
 export default function Home() {
   const [haberler, setHaberler] = useState([])
@@ -144,23 +145,7 @@ export default function Home() {
           <h2 className="text-2xl font-bold" style={{ color: 'var(--color-primary)' }}>Galeriden Kareler</h2>
           <a href="/galeri" className="text-sm" style={{ color: 'var(--color-primary)' }}>Tüm galeriyi gör →</a>
         </div>
-        <div className="grid grid-cols-3 gap-4">
-        {galeri.length === 0 ? (
-            <p className="text-gray-400 col-span-3">Henüz görsel yok.</p>
-        ) : (
-            galeri
-            .filter(g => g.gorsel?.asset?._ref)
-            .slice(0, 6)
-            .map((g) => (
-                <img
-                key={g._id}
-                src={`https://cdn.sanity.io/images/${import.meta.env.VITE_SANITY_PROJECT_ID}/production/${g.gorsel.asset._ref.replace('image-', '').replace(/-(\w+)$/, '.$1')}`}
-                alt=""
-                className="w-full h-48 object-cover rounded-xl"
-                />
-            ))
-        )}
-        </div>
+        <GaleriSlider galeri={galeri} />
       </section>
 
       {/* HABERLER */}

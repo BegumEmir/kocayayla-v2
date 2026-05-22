@@ -31,12 +31,12 @@ export default function Baskanlar() {
           <h2 className="text-xl font-semibold mb-4" style={{ color: 'var(--color-primary)' }}>
             Mevcut Başkanımız
           </h2>
-          <div className="bg-white rounded-2xl shadow-sm p-8 flex flex-col md:flex-row gap-8 items-start">
+          <div className="bg-white rounded-2xl shadow-sm p-8 flex flex-col md:flex-row gap-8 items-center md:items-start">
             {baskan.foto && (
               <img
                 src={gorselUrl(baskan.foto.asset._ref)}
                 alt={baskan.ad}
-                className="w-48 h-56 rounded-xl object-cover object-top flex-shrink-0"
+                className="w-48 h-56 rounded-xl object-cover object-top flex-shrink-0 mx-auto md:mx-0"
               />
             )}
             <div>

@@ -33,7 +33,7 @@ export default function Navbar() {
                   { to: '/hakkimizda', label: 'Hakkımızda' },
                   { to: '/baskanlar', label: 'Başkanlar' },
                   { to: '/kurullar', label: 'Yönetim Kurulu' },
-                  { to: '/kurullar', label: 'Denetim Kurulu' },
+                  { to: '/kurullar#denetim-kurulu', label: 'Denetim Kurulu' },
                   { to: '/ortaklarimiz', label: 'Ortaklarımız' },
                 ].map((item) => (
                   <Link
@@ -98,7 +98,7 @@ export default function Navbar() {
           <Link to="/hakkimizda" onClick={() => setMenuAcik(false)}>Hakkımızda</Link>
           <Link to="/baskanlar" onClick={() => setMenuAcik(false)}>Başkanlar</Link>
           <Link to="/kurullar" onClick={() => setMenuAcik(false)}>Yönetim Kurulu</Link>
-          <Link to="/kurullar" onClick={() => setMenuAcik(false)}>Denetim Kurulu</Link>
+          <Link to="/kurullar#denetim-kurulu" onClick={() => setMenuAcik(false)}>Denetim Kurulu</Link>
           <Link to="/ortaklarimiz" onClick={() => setMenuAcik(false)}>Ortaklarımız</Link>
           <Link to="/faaliyetler" onClick={() => setMenuAcik(false)}>Faaliyetler</Link>
           <Link to="/haberler" onClick={() => setMenuAcik(false)}>Haberlerimiz</Link>
