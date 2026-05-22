@@ -1,16 +1,22 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { client } from '../sanityClient'
+import imageUrlBuilder from '@sanity/image-url'
+
+const builder = imageUrlBuilder(client)
+const urlFor = (source) => builder.image(source).width(600).url()
 
 export default function Haberler() {
   const [haberler, setHaberler] = useState([])
 
   useEffect(() => {
-    client.fetch('*[_type == "haber"] | order(tarih desc)').then(setHaberler)
+    client
+      .fetch('*[_type == "haber"] | order(tarih desc) { _id, baslik, tarih, ozet, kapakGorseli, medya, slug }')
+      .then(setHaberler)
   }, [])
 
   return (
-    <div className="max-w-4xl mx-auto px-6 py-16">
+    <div className="max-w-6xl mx-auto px-6 py-16">
       <h1 className="text-3xl font-bold mb-8" style={{ color: 'var(--color-primary-dark)' }}>
         Haberlerimiz
       </h1>
@@ -18,25 +24,56 @@ export default function Haberler() {
       {haberler.length === 0 ? (
         <p className="text-gray-400">Henüz haber yok.</p>
       ) : (
-        <div className="flex flex-col gap-4">
-          {haberler.map((h) => (
-            <div key={h._id} className="bg-white rounded-2xl shadow-sm p-6 border-l-4" style={{ borderColor: 'var(--color-primary)' }}>
-              <h2 className="text-xl font-semibold mb-1" style={{ color: 'var(--color-primary-dark)' }}>
-                {h.baslik}
-              </h2>
-              <p className="text-sm text-gray-400 mb-2">
-                {new Date(h.tarih).toLocaleDateString('tr-TR', { day: 'numeric', month: 'long', year: 'numeric' })}
-              </p>
-              <p className="text-gray-600 text-sm mb-4">{h.ozet}</p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {haberler.map((h) => {
+            const kapak = h.kapakGorseli ?? h.medya?.find((m) => m._type === 'image')
+            const videoVar = !kapak && h.medya?.some((m) => m._type === 'file')
+
+            return (
               <Link
+                key={h._id}
                 to={`/haberler/${h.slug?.current}`}
-                className="text-sm font-medium underline"
-                style={{ color: 'var(--color-primary)' }}
+                className="bg-white rounded-2xl shadow-sm overflow-hidden hover:shadow-md transition-shadow"
               >
-                Haberi Görüntüle →
+                {kapak ? (
+                  <img
+                    src={urlFor(kapak)}
+                    alt={h.baslik}
+                    className="w-full h-48 object-cover"
+                  />
+                ) : (
+                  <div
+                    className="w-full h-48 flex items-center justify-center"
+                    style={{ backgroundColor: 'var(--color-primary-dark)' }}
+                  >
+                    {videoVar ? (
+                      <span className="text-white text-4xl opacity-80">▶</span>
+                    ) : (
+                      <img
+                        src="/logo.png"
+                        alt="Logo"
+                        className="w-24 opacity-40"
+                      />
+                    )}
+                  </div>
+                )}
+
+                <div className="p-5">
+                  <h2 className="text-base font-semibold mb-1 leading-snug" style={{ color: 'var(--color-primary-dark)' }}>
+                    {h.baslik}
+                  </h2>
+                  <p className="text-xs text-gray-400 mb-2">
+                    {new Date(h.tarih).toLocaleDateString('tr-TR', {
+                      day: 'numeric',
+                      month: 'long',
+                      year: 'numeric',
+                    })}
+                  </p>
+                  <p className="text-gray-600 text-sm line-clamp-3">{h.ozet}</p>
+                </div>
               </Link>
-            </div>
-          ))}
+            )
+          })}
         </div>
       )}
     </div>
