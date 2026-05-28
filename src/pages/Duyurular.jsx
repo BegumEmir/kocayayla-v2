@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { client } from '../sanityClient'
+import { Helmet } from 'react-helmet-async'
 
 export default function Duyurular() {
   const [duyurular, setDuyurular] = useState([])
@@ -10,6 +11,11 @@ export default function Duyurular() {
   }, [])
 
   return (
+    <>
+    <Helmet>
+      <title>Duyurular | S.S. Kocayayla Köyü Tarımsal Kalkınma Kooperatifi</title>
+      <meta name="description" content="Kocayayla Kooperatifi duyuruları ve güncel bildirimler." />
+    </Helmet>
     <div className="max-w-4xl mx-auto px-6 py-16">
       <h1 className="text-3xl font-bold mb-8" style={{ color: 'var(--color-primary-dark)' }}>
         Duyurularımız
@@ -43,5 +49,6 @@ export default function Duyurular() {
         </div>
       )}
     </div>
+    </>
   )
 }

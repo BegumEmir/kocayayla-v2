@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { client } from '../sanityClient'
 import GaleriSlider from '../components/GaleriSlider'
+import { Helmet } from 'react-helmet-async'
 
 export default function Home() {
   const [haberler, setHaberler] = useState([])
@@ -20,6 +21,11 @@ export default function Home() {
 
   return (
     <div>
+
+      <Helmet>
+        <title>S.S. Kocayayla Köyü Tarımsal Kalkınma Kooperatifi</title>
+        <meta name="description" content="Çanakkale ili Çan ilçesi Kocayayla Köyü'nde faaliyet gösteren tarım kooperatifi. Haberler, duyurular, galeri ve kooperatif bilgileri." />
+      </Helmet>
       {/* HERO */}
       <section className="max-w-5xl mx-auto px-6 py-16">
         <div className="bg-white rounded-2xl shadow-sm p-10 flex flex-col md:flex-row items-center gap-10">

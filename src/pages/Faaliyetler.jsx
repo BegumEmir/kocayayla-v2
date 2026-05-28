@@ -1,3 +1,5 @@
+import { Helmet } from 'react-helmet-async'
+
 export default function Faaliyetler() {
   const faaliyetler = [
     {
@@ -39,6 +41,11 @@ export default function Faaliyetler() {
   ]
 
   return (
+    <>
+    <Helmet>
+      <title>Faaliyetler | S.S. Kocayayla Köyü Tarımsal Kalkınma Kooperatifi</title>
+      <meta name="description" content="Kocayayla Kooperatifi'nin tarımsal ve sosyal faaliyetleri." />
+    </Helmet>
     <div className="max-w-4xl mx-auto px-6 py-16">
       <h1 className="text-3xl font-bold mb-4" style={{ color: 'var(--color-primary-dark)' }}>
         Faaliyetlerimiz
@@ -80,5 +87,6 @@ export default function Faaliyetler() {
         </p>
       </div>
     </div>
+    </>
   )
 }

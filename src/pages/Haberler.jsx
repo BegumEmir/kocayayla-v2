@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { client } from '../sanityClient'
 import imageUrlBuilder from '@sanity/image-url'
+import { Helmet } from 'react-helmet-async'
 
 const builder = imageUrlBuilder(client)
 const urlFor = (source) => builder.image(source).width(600).url()
@@ -16,6 +17,11 @@ export default function Haberler() {
   }, [])
 
   return (
+    <>
+    <Helmet>
+      <title>Haberler | S.S. Kocayayla Köyü Tarımsal Kalkınma Kooperatifi</title>
+      <meta name="description" content="Kocayayla Kooperatifi'nden son haberler ve gelişmeler." />
+    </Helmet>
     <div className="max-w-6xl mx-auto px-6 py-16">
       <h1 className="text-3xl font-bold mb-8" style={{ color: 'var(--color-primary-dark)' }}>
         Haberlerimiz
@@ -77,5 +83,6 @@ export default function Haberler() {
         </div>
       )}
     </div>
+    </>
   )
 }

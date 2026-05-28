@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { client } from '../sanityClient'
+import { Helmet } from 'react-helmet-async'
 
 const eskiBaskanlar = [
   { ad: 'Hasan Ünlü' },
@@ -20,6 +21,12 @@ export default function Baskanlar() {
     `https://cdn.sanity.io/images/${import.meta.env.VITE_SANITY_PROJECT_ID}/production/${ref.replace('image-', '').replace(/-(\w+)$/, '.$1')}`
 
   return (
+  <>
+    <Helmet>
+      <title>Başkanlarımız | S.S. Kocayayla Köyü Tarımsal Kalkınma Kooperatifi</title>
+      <meta name="description" content="Kocayayla Kooperatifi'nin geçmiş ve mevcut başkanları hakkında bilgi edinin." />
+    </Helmet>
+
     <div className="max-w-4xl mx-auto px-6 py-16">
       <h1 className="text-3xl font-bold mb-10" style={{ color: 'var(--color-primary-dark)' }}>
         Kooperatif Başkanlarımız
@@ -76,5 +83,6 @@ export default function Baskanlar() {
         </div>
       </div>
     </div>
+    </>
   )
 }

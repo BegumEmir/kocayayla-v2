@@ -1,5 +1,13 @@
+import { Helmet } from 'react-helmet-async'
+
 export default function Ortaklarimiz() {
   return (
+
+    <>
+    <Helmet>
+      <title>Ortaklarımız | S.S. Kocayayla Köyü Tarımsal Kalkınma Kooperatifi</title>
+      <meta name="description" content="Kocayayla Kooperatifi ortakları listesi." />
+    </Helmet>
     <div className="max-w-4xl mx-auto px-6 py-16">
       <h1 className="text-3xl font-bold mb-8" style={{ color: 'var(--color-primary-dark)' }}>
         Ortaklarımız
@@ -131,5 +139,6 @@ export default function Ortaklarimiz() {
         </p>
       </div>
     </div>
+    </>
   )
 }

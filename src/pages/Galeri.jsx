@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { client } from '../sanityClient'
+import { Helmet } from 'react-helmet-async'
 
 export default function Galeri() {
   const [icerikler, setIcerikler] = useState([])
@@ -30,6 +31,11 @@ export default function Galeri() {
     url.replace('watch?v=', 'embed/').replace('youtu.be/', 'www.youtube.com/embed/')
 
   return (
+    <>
+    <Helmet>
+      <title>Galeri | S.S. Kocayayla Köyü Tarımsal Kalkınma Kooperatifi</title>
+      <meta name="description" content="Kocayayla Kooperatifi etkinlik ve köy fotoğraf galerisi." />
+    </Helmet>
     <div className="max-w-5xl mx-auto px-6 py-16">
       <h1 className="text-3xl font-bold mb-8" style={{ color: 'var(--color-primary-dark)' }}>
         Galeri
@@ -135,5 +141,6 @@ export default function Galeri() {
         </div>
       )}
     </div>
+    </>
   )
 }

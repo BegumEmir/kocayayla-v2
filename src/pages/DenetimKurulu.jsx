@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { client } from '../sanityClient'
+import { Helmet } from 'react-helmet-async'
 
 export default function DenetimKurulu() {
   const [uyeler, setUyeler] = useState([])
@@ -9,6 +10,11 @@ export default function DenetimKurulu() {
   }, [])
 
   return (
+      <>
+    <Helmet>
+      <title>Denetim Kurulu | S.S. Kocayayla Köyü Tarımsal Kalkınma Kooperatifi</title>
+      <meta name="description" content="Kocayayla Kooperatifi denetim kurulu üyeleri ve görevleri." />
+    </Helmet>
     <div className="max-w-4xl mx-auto px-6 py-16">
       <h1 className="text-3xl font-bold mb-8" style={{ color: 'var(--color-primary-dark)' }}>
         Denetim Kurulu
@@ -38,5 +44,6 @@ export default function DenetimKurulu() {
         </div>
       )}
     </div>
+    </>
   )
 }

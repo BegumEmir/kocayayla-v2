@@ -1,7 +1,13 @@
 import { Link } from 'react-router-dom'
+import { Helmet } from 'react-helmet-async' 
 
 export default function Hakkimizda() {
   return (
+    <>
+    <Helmet>
+      <title>Hakkımızda | S.S. Kocayayla Köyü Tarımsal Kalkınma Kooperatifi</title>
+      <meta name="description" content="S.S. Kocayayla Köyü Tarımsal Kalkınma Kooperatifi hakkında bilgi edinin. Tarihçemiz, misyonumuz ve vizyonumuz." />
+    </Helmet>
     <div className="max-w-4xl mx-auto px-6 py-16">
       <h1 className="text-3xl font-bold mb-2" style={{ color: 'var(--color-primary-dark)' }}>
         Kurumsal Kimliğimiz
@@ -101,5 +107,6 @@ export default function Hakkimizda() {
         </Link>
       </div>
     </div>
+    </>
   )
 }

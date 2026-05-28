@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { client } from '../sanityClient'
 import imageUrlBuilder from '@sanity/image-url'
+import { Helmet } from 'react-helmet-async'
 
 const builder = imageUrlBuilder(client)
 const urlFor = (source) => builder.image(source).width(900).url()
@@ -16,6 +17,7 @@ function MediaSlider({ medya, baslik, videoUrl }) {
   const item = medya[aktif]
 
   return (
+
     <div className="mb-6">
       <div className="relative rounded-xl overflow-hidden bg-black" style={{ aspectRatio: '16/9' }}>
         {item._type === 'image' ? (
@@ -111,6 +113,11 @@ export default function HaberDetay() {
   }
 
   return (
+      <>
+    <Helmet>
+      <title>{haber.baslik} | Kocayayla Kooperatifi</title>
+      <meta name="description" content={haber.ozet || haber.baslik} />
+    </Helmet>
     <div className="max-w-3xl mx-auto px-6 py-16">
 
       {/* Breadcrumb */}
@@ -176,5 +183,6 @@ export default function HaberDetay() {
         </div>
       </div>
     </div>
+    </>
   )
 }
