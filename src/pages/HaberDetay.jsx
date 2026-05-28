@@ -99,9 +99,7 @@ export default function HaberDetay() {
       .then(setHaber)
   }, [slug])
 
-  if (!haber) return (
-    <div className="max-w-4xl mx-auto px-6 py-16 text-gray-400">Yükleniyor...</div>
-  )
+  
 
   const videoUrl = (ref) =>
     `https://cdn.sanity.io/files/${import.meta.env.VITE_SANITY_PROJECT_ID}/production/${ref.replace('file-', '').replace(/-(\w+)$/, '.$1')}`
@@ -113,11 +111,15 @@ export default function HaberDetay() {
   }
 
   return (
-      <>
-    <Helmet>
-      <title>{haber.baslik} | Kocayayla Kooperatifi</title>
-      <meta name="description" content={haber.ozet || haber.baslik} />
-    </Helmet>
+  <>
+      <Helmet>
+        <title>{haber ? `${haber.baslik} | Kocayayla Kooperatifi` : 'Kocayayla Kooperatifi'}</title>
+        <meta name="description" content={haber?.ozet || haber?.baslik || ''} />
+      </Helmet>
+
+      {!haber ? (
+        <div className="max-w-4xl mx-auto px-6 py-16 text-gray-400">Yükleniyor...</div>
+      ) : (
     <div className="max-w-3xl mx-auto px-6 py-16">
 
       {/* Breadcrumb */}
@@ -183,6 +185,7 @@ export default function HaberDetay() {
         </div>
       </div>
     </div>
+      )}
     </>
   )
 }
